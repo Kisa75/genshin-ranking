@@ -1,0 +1,12 @@
+
+gcsim-data/
+
+.idea/
+
+__pycache__/
+
+adjusted_result.txt
+
+general_result.txt
+
+teams.json
