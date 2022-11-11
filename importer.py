@@ -16,7 +16,7 @@ def import_gcsim_char_list(gcsim_url):
     gcsim_char_list = json.loads(data)
 
     with io.open('gcsim-data/char_list.json', 'w', encoding='utf-8') as f:
-        f.write(json.dumps(gcsim_char_list, ensure_ascii=False))
+        f.write(json.dumps(gcsim_char_list, ensure_ascii=False, indent=4))
 
     print('Finished gcsim character list!')
 
@@ -36,7 +36,7 @@ def import_team_data(gcsim_url, avatar_name):
     current_list = json.loads(data)
 
     with io.open(f'gcsim-data/{avatar_name}.json', 'w', encoding='utf-8') as f:
-        f.write(json.dumps(current_list, ensure_ascii=False))
+        f.write(json.dumps(current_list, ensure_ascii=False, indent=4))
 
 
 def get_full_sim_list():
@@ -90,7 +90,7 @@ def export_teams(unique_teams):
     print(f'Exporting {len(result)} teams to teams.json...')
 
     with io.open('teams.json', 'w', encoding='utf-8') as f:
-        f.write(json.dumps(result, ensure_ascii=False))
+        f.write(json.dumps(result, ensure_ascii=False, indent=4))
 
 
 def check_for_standard(unique_teams):
@@ -145,6 +145,6 @@ def build_data(unique_teams):
         w_dicts.append({'name': weapon, 'rarity': 4})
 
     with io.open('genshin-data/characters.json', 'w', encoding='utf-8') as f:
-        f.write(json.dumps(c_dicts, ensure_ascii=False))
+        f.write(json.dumps(c_dicts, ensure_ascii=False, indent=4))
     with io.open('genshin-data/weapons.json', 'w', encoding='utf-8') as f:
-        f.write(json.dumps(w_dicts, ensure_ascii=False))
+        f.write(json.dumps(w_dicts, ensure_ascii=False, indent=4))
