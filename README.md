@@ -1,4 +1,4 @@
-# Prerequisite
+# Prerequisites
 
 - Requires python 3.10
 
@@ -8,4 +8,4 @@
 2. Import current gcsim data (second option in main menu)
 3. Calculate scores (first option in main menu)
 
-Results will be in ```general_results.txt``` and ```adjusted_results.txt``` respectively.
+Results will be in ```general_result.txt``` and ```adjusted_result.txt``` respectively.
