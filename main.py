@@ -1,5 +1,6 @@
 import io
 import json
+import numbers
 import os
 import importer
 import rating
@@ -77,7 +78,31 @@ def import_menu():
 
 def settings_menu():
     os.system('cls')
-    input('')
+
+    settings_data = open('settings.json')
+    settings = json.load(settings_data)
+
+    changeable_settings = []
+
+    i = 1
+
+    for s in settings:
+        if isinstance(settings[s], numbers.Number):
+            changeable_settings.append(s)
+            print(f'\n[{i}] {s}: {settings[s]}')
+            i += 1
+
+    choice = input('\nSelect setting to change: ')
+
+    if choice.isdigit() and 0 < int(choice) <= len(changeable_settings):
+        new_val = input('\nEnter new value: ')
+        settings[changeable_settings[int(choice)-1]] = float(new_val)
+        with io.open('settings.json', 'w', encoding='utf-8') as f:
+            f.write(json.dumps(settings, ensure_ascii=False, indent=4))
+        input('\nSetting changed successfully! Press enter to continue...')
+    else:
+        input('\nInvalid input! Press enter to continue...')
+
     main_menu()
 
 
