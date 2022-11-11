@@ -29,14 +29,15 @@ def main_menu():
             settings_menu()
         case '4':
             os.system('cls')
-            return
+            quit()
         case '5':
             build_menu()
+    main_menu()
 
 
 def calc_menu():
     os.system('cls')
-    print(f'[1] Calculate general score\n')
+    print(f'\n[1] Calculate general score\n')
     print(f'[2] Calculate adjusted score\n')
     print(f'[3] Back\n')
     choice = input('')
@@ -45,12 +46,12 @@ def calc_menu():
         case '1':
             os.system('cls')
             rating.calc_general_value()
-            input('Finished! Press enter to continue')
+            input('Finished! Press enter to continue...')
             main_menu()
         case '2':
             os.system('cls')
             rating.calc_adjusted_value()
-            input('Finished! Press enter to continue')
+            input('Finished! Press enter to continue...')
             main_menu()
         case '3':
             os.system('cls')
@@ -60,7 +61,7 @@ def calc_menu():
 def import_menu():
     os.system('cls')
 
-    choice = input('Are you sure? (existing data will be overwritten) [y/(n)] ')
+    choice = input('\nAre you sure? (existing data will be overwritten) [y/(n)] ')
 
     match choice:
         case 'y':
@@ -71,7 +72,7 @@ def import_menu():
             importer.import_total_team_data(settings['gcsim_api_url'])
             unique_teams = importer.get_full_sim_list()
             importer.export_teams(unique_teams)
-            input('Finished! Press enter to continue')
+            input('Finished! Press enter to continue...')
 
     main_menu()
 
@@ -108,7 +109,7 @@ def settings_menu():
 
 def build_menu():
     os.system('cls')
-    choice = input('Are you sure? (existing data will be overwritten) [y/(n)] ')
+    choice = input('Are you sure? (YOU ARE PROBABLY NOT SUPPOSED TO BE HERE, WILL OVERWRITE IMPORTANT FILES) [y/(n)] ')
     match choice:
         case 'y':
             unique_teams = importer.get_full_sim_list()
