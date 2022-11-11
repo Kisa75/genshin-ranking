@@ -44,12 +44,12 @@ def calc_menu():
         case '1':
             os.system('cls')
             rating.calc_general_value()
-            input('Press any key to continue')
+            input('Finished! Press enter to continue')
             main_menu()
         case '2':
             os.system('cls')
             rating.calc_adjusted_value()
-            input('Press any key to continue')
+            input('Finished! Press enter to continue')
             main_menu()
         case '3':
             os.system('cls')
@@ -59,12 +59,16 @@ def calc_menu():
 def import_menu():
     os.system('cls')
 
-    importer.import_gcsim_char_list(gcsim_url)
-    importer.import_total_team_data(gcsim_url)
-    unique_teams = importer.get_full_sim_list()
-    importer.export_teams(unique_teams)
+    choice = input('Are you sure? (existing data will be overwritten) [y/(n)] ')
 
-    input('Finished! Press any key to continue')
+    match choice:
+        case 'y':
+            importer.import_gcsim_char_list(gcsim_url)
+            importer.import_total_team_data(gcsim_url)
+            unique_teams = importer.get_full_sim_list()
+            importer.export_teams(unique_teams)
+            input('Finished! Press enter to continue')
+
     main_menu()
 
 
@@ -76,8 +80,12 @@ def settings_menu():
 
 def build_menu():
     os.system('cls')
-    unique_teams = importer.get_full_sim_list()
-    #importer.build_data(unique_teams)
+    choice = input('Are you sure? (existing data will be overwritten) [y/(n)] ')
+    match choice:
+        case 'y':
+            unique_teams = importer.get_full_sim_list()
+            importer.build_data(unique_teams)
+    main_menu()
 
 
 if __name__ == '__main__':
