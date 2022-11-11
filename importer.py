@@ -1,11 +1,15 @@
 import io
 import json
+import os
 import urllib.request
 from urllib.request import Request
 
 
 def import_gcsim_char_list(gcsim_url):
     print('Importing gcsim character list...')
+
+    if not os.path.exists('gcsim-data'):
+        os.mkdir('gcsim-data')
 
     req = Request(url=gcsim_url, headers={'User-Agent': 'Mozilla/5.0'})
     data = urllib.request.urlopen(req).read()
