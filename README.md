@@ -1,4 +1,4 @@
-# Prerequisite
+# Prerequisites
 
 - Requires python 3.10
 
