@@ -2,9 +2,6 @@ import io
 import json
 
 
-DIMINISHING_FACTOR = 2/3
-
-
 def calc_general_value():
 
     print('Calculating general value...')
@@ -14,6 +11,9 @@ def calc_general_value():
 
     team_data = open('teams.json')
     teams = json.load(team_data)
+
+    settings_data = open('settings.json')
+    settings = json.load(settings_data)
 
     result = []
 
@@ -25,7 +25,7 @@ def calc_general_value():
         for t in teams:
             if c['name'] in t['char_names']:
                 result[len(result)-1]['rating'] += factor * t['dps']
-                factor *= DIMINISHING_FACTOR
+                factor *= settings['diminishing_factor']
 
     result = sorted(result, key=lambda d: d['rating'], reverse=True)
 
@@ -41,6 +41,9 @@ def calc_adjusted_value():
 
     team_data = open('teams.json')
     teams = json.load(team_data)
+
+    settings_data = open('settings.json')
+    settings = json.load(settings_data)
 
     result = []
 
@@ -59,7 +62,7 @@ def calc_adjusted_value():
                     if name == c['name']:
                         contribution += c_contribution
                 result[len(result) - 1]['rating'] += factor * t['dps'] * (contribution/total_score)
-                factor *= DIMINISHING_FACTOR
+                factor *= settings['diminishing_factor']
 
         result = sorted(result, key=lambda d: d['rating'], reverse=True)
 

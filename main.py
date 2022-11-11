@@ -1,8 +1,8 @@
+import io
+import json
 import os
 import importer
 import rating
-
-gcsim_url = 'https://gcsim.app/api/db/'
 
 
 def main_menu():
@@ -63,8 +63,11 @@ def import_menu():
 
     match choice:
         case 'y':
-            importer.import_gcsim_char_list(gcsim_url)
-            importer.import_total_team_data(gcsim_url)
+            settings_data = open('settings.json')
+            settings = json.load(settings_data)
+
+            importer.import_gcsim_char_list(settings['gcsim_api_url'])
+            importer.import_total_team_data(settings['gcsim_api_url'])
             unique_teams = importer.get_full_sim_list()
             importer.export_teams(unique_teams)
             input('Finished! Press enter to continue')
@@ -89,4 +92,11 @@ def build_menu():
 
 
 if __name__ == '__main__':
+    if not os.path.exists('settings.json'):
+        init_settings = {
+            'gcsim_api_url': 'https://gcsim.app/api/db/',
+            'diminishing_factor': 2/3
+        }
+        with io.open('settings.json', 'w', encoding='utf-8') as f:
+            f.write(json.dumps(init_settings, ensure_ascii=False, indent=4))
     main_menu()
