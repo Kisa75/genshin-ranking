@@ -14,7 +14,7 @@ def main_menu():
     print("**********************************************\n")
 
     print(f'[1] Calculate rankings\n')
-    print(f'[2] Import gcsim database\n')
+    print(f'[2] Import/Update gcsim database\n')
     print(f'[3] Settings\n')
     print(f'[4] Exit\n')
 
