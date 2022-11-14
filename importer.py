@@ -62,6 +62,9 @@ def get_full_sim_list():
 def export_teams(unique_teams):
     print(f'Filtering {len(unique_teams)} teams...')
 
+    with io.open(f'gcsim-data/unique_teams.json', 'w', encoding='utf-8') as f:
+        f.write(json.dumps(unique_teams, ensure_ascii=False, indent=4))
+
     unique_teams = check_for_standard(unique_teams)
 
     teams = []
@@ -70,6 +73,7 @@ def export_teams(unique_teams):
         metadata = json.loads(sim['metadata'])
 
         team = {
+            'key': sim["simulation_key"],
             'char_names': sorted(metadata['char_names']),
             'dps': metadata['dps']['mean']
         }
@@ -91,6 +95,23 @@ def export_teams(unique_teams):
 
     with io.open('teams.json', 'w', encoding='utf-8') as f:
         f.write(json.dumps(result, ensure_ascii=False, indent=4))
+
+
+def export_characters():
+    if not os.path.exists('export'):
+        os.mkdir('export')
+
+    team_data = open('teams.json')
+    teams = json.load(team_data)
+
+    for t in teams:
+        for c in t['char_names']:
+            if not os.path.isfile(f'export/{c}.json'):
+                with io.open(f'export/{c}.json', 'w', encoding='utf-8') as f:
+                    f.write(json.dumps(t, ensure_ascii=False, indent=4))
+            else:
+                with io.open(f'export/{c}.json', 'a', encoding='utf-8') as f:
+                    f.write(f'\n{json.dumps(t, ensure_ascii=False, indent=4)}')
 
 
 def check_for_standard(unique_teams):

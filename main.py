@@ -4,6 +4,7 @@ import numbers
 import os
 import importer
 import rating
+import checker
 
 
 def main_menu():
@@ -16,7 +17,9 @@ def main_menu():
     print(f'[1] Calculate rankings\n')
     print(f'[2] Import/Update gcsim database\n')
     print(f'[3] Settings\n')
-    print(f'[4] Exit\n')
+    print(f'[4] Export teams\n')
+    print(f'[5] Filter Testing\n')
+    print(f'[6] Exit\n')
 
     choice = input('')
 
@@ -28,9 +31,13 @@ def main_menu():
         case '3':
             settings_menu()
         case '4':
+            export_menu()
+        case '5':
+            filter_menu()
+        case '6':
             os.system('cls')
             quit()
-        case '5':
+        case '7':
             build_menu()
     main_menu()
 
@@ -105,6 +112,40 @@ def settings_menu():
         input('\nInvalid input! Press enter to continue...')
 
     main_menu()
+
+
+def export_menu():
+    os.system('cls')
+
+    choice = input('\nAre you sure? (existing data will be overwritten) [y/(n)] ')
+    match choice:
+        case 'y':
+            importer.export_characters()
+            input('Finished! Press enter to continue...')
+
+    main_menu()
+
+
+def filter_menu():
+    os.system('cls')
+
+    artifact_stats_data = open('genshin-data/artifact_stats.json')
+    artifact_stats = json.load(artifact_stats_data)
+
+    unique_teams_data = open('gcsim-data/unique_teams.json')
+    unique_teams = json.load(unique_teams_data)
+
+    print(f'Total amount of teams: {len(unique_teams)}\n')
+    valid_teams = 0
+
+    for team in unique_teams:
+        if checker.check_stats(team, artifact_stats) and checker.check_weapons(team):
+            valid_teams += 1
+        else:
+            print(f'{team["simulation_key"]}\n')
+
+    print(f'Amount of valid teams: {valid_teams}\n')
+    input('Finished! Press enter to continue...')
 
 
 def build_menu():
